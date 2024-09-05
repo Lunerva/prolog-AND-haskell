@@ -1,9 +1,12 @@
-% This is the syntax for comments.
-% MORTAL - The first illustrative Prolog program
+% luis barranco.
+
 mortal(X) :- person(X).
+
+person(luis).
 person(socrates).
 person(plato).
-person(aristotle).
+person(aristoteles).
+
 mortal_report:-
   write('Known mortals are:'),nl,
   mortal(X),
