@@ -8,7 +8,7 @@ male(julio).
 male(ernesto).
 male(ismael).
 
-
+female(juanita).
 female(andrea).
 female(karina).
 
@@ -18,9 +18,21 @@ parent(ernesto,julio).
 parent(ernesto,andrea).
 parent(ernesto,ismael).
 
+parent(juanita,luis).
+parent(juanita,julio).
+parent(juanita,ismael).
+
 parent(eliseo,carlos).
 parent(eliseo,mario).
 parent(eliseo,cesar).
 parent(eliseo,karina).
 parent(eliseo,ernesto).
 
+parent_daughters(X) :-
+    female(Y),
+    parent(X,Y),
+    write(Y),
+    nl,
+    tab(2),
+    fail.
+parent_female(_).
