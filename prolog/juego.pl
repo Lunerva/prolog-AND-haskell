@@ -27,7 +27,7 @@ edible(crackers).
 tastes_yucky(broccoli).
 
 here(kitchen).
-
+:- dynamic here/1.
 
 where_food(X,Y) :-
     location(X,Y),
@@ -37,6 +37,11 @@ where_food(X,Y) :-
 connect(X,Y) :- door(X,Y).
 connect(X,Y) :- door(Y,X).
 
+where_object(X) :-
+    location(X,Y),
+    tab(2),
+    write(Y),
+    nl.
 
 list_things(Place) :-
     location(X,Place),
@@ -61,6 +66,44 @@ look :-
     list_things(Place),
     write('You can go to:'), nl,
     list_connections(Place).
+
+goto(Place):-
+    can_go(Place),
+    move(Place),
+    look.
+
+can_go(Place):-
+    here(X),
+    connect(X, Place).
+can_go(Place):-
+    write('You can''t get there from here.'), nl,
+    fail.
+
+move(Place):-
+    retract(here(X)),
+    asserta(here(Place)).
+
+take(X):-
+    can_take(X),
+    take_object(X).
+
+can_take(Thing) :-
+    here(Place),
+    location(Thing, Place).
+can_take(Thing) :-
+    write('There is no '), write(Thing),
+    write(' here.'),
+    nl, fail.
+
+take_object(X):-
+    retract(location(X,_)),
+    asserta(have(X)),
+    write('taken'), nl.
+
+backtracking_assert(X):-
+    asserta(X).
+backtracking_assert(X):-
+    retract(X),fail.
 
 
 

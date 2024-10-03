@@ -36,3 +36,12 @@ parent_daughters(X) :-
     tab(2),
     fail.
 parent_female(_).
+
+hermanos(X) :-
+    parent(Y,X),
+    parent(Y,Z),
+    X\=Z,
+    tab(2),
+    write(Z),
+    nl,
+    fail.
